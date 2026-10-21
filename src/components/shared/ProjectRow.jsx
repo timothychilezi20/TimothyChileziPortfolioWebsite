@@ -1,9 +1,34 @@
+import { useState } from "react";
 import TagPill from "./TagPill";
 import "../../styles/pages/projects.css";
 
+// "Code Red: Escape" -> "CR", "HireMe" -> "H"
+const makeInitials = (title) =>
+  title
+    .replace(/^the\s+/i, "")
+    .split(/\s+/)
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
 function ProjectRow({ project, index }) {
-  const { title, type, description, tags, image, accent, link } = project;
+  const {
+    title,
+    type,
+    description,
+    tags,
+    image,
+    cover = {},
+    accent,
+    link,
+  } = project;
   const number = String(index + 1).padStart(2, "0");
+
+  // Same card layout either way: the cover image sits inside the tilted card
+  // when it loads; if it is missing or fails, the card shows initials instead.
+  const [imageFailed, setImageFailed] = useState(false);
+  const showImage = image && !imageFailed;
 
   return (
     <article className="project-row">
@@ -13,7 +38,27 @@ function ProjectRow({ project, index }) {
       </div>
 
       <div className="project-row__media" style={{ "--accent": accent }}>
-        <img src={image} alt={`${title} cover`} loading="lazy" />
+        <div className={`cover-card ${showImage ? "cover-card--image" : ""}`}>
+          {showImage ? (
+            <img
+              src={image}
+              alt={`${title} cover`}
+              loading="lazy"
+              onError={() => setImageFailed(true)}
+            />
+          ) : (
+            <>
+              <span
+                className="cover-card__initials"
+                style={{ color: cover.tint || "var(--lavender)" }}
+              >
+                {cover.initials || makeInitials(title)}
+              </span>
+              <span className="cover-card__label">{cover.label || type}</span>
+            </>
+          )}
+        </div>
+        {cover.sphere && <span className="cover-sphere" aria-hidden="true" />}
       </div>
 
       <div className="project-row__body">

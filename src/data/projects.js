@@ -1,6 +1,3 @@
-// Single source of truth for every project on the site.
-// category: "game" | "website" | "story"  (drives the Games / Websites / Stories pages)
-
 export const CONTACT_EMAIL = "timothychilezi@gmail.com";
 
 export const projects = [
@@ -12,8 +9,8 @@ export const projects = [
     description:
       "A first-person shooter where a player must shoot their way through robot guards to escape a prison setting.",
     tags: ["Unity", "C#", "Blender", "Krita"],
-    image: "/images/projects/code-red-escape.png",
-    accent: "#2B2B4A", // backdrop colour behind the cover image
+    image: "/images/projects/code-red-escape.jpg",
+    accent: "#2B2B4A",
     link: `mailto:${CONTACT_EMAIL}?subject=Code Red: Escape`,
   },
   {
@@ -24,7 +21,7 @@ export const projects = [
     description:
       "Student-focused job and internship platform designed to connect students with employment opportunities in an accessible way.",
     tags: ["React", "CSS", "JavaScript", "JSX", "SQL"],
-    image: "/images/projects/hireme.png",
+    image: "/images/projects/hireme.jpg",
     accent: "#3157FF",
     link: `mailto:${CONTACT_EMAIL}?subject=HireMe`,
   },
